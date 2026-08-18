@@ -1,0 +1,13 @@
+gui/__pycache__/
+gui/config.json
+dist/
+*.pak
+
+# Wine prefix used by pack.sh — regenerate with:
+#   WINEPREFIX="$(pwd)/.wineprefix" winetricks -q dotnet8
+.wineprefix/
+
+# LSLib's Divine tool — third-party binaries, not ours to redistribute.
+# See tools/README.md for how to get them.
+tools/*
+!tools/README.md

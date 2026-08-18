@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+  <version major="4" minor="0" revision="9" build="331" />
+  <region id="Config">
+    <node id="root">
+      <children>
+        <node id="Dependencies" />
+        <node id="ModuleInfo">
+          <attribute id="Author" type="LSString" value="azidesta" />
+          <attribute id="CharacterCreationLevelName" type="FixedString" value="" />
+          <attribute id="Description" type="LSString" value="Bridge mod for BG3_SE_GUI: polls a JSON command file written by an external desktop app and executes the requested action in-game via Script Extender." />
+          <attribute id="Folder" type="LSString" value="BG3GuiBridge" />
+          <attribute id="GMTemplate" type="FixedString" value="" />
+          <attribute id="LobbyLevelName" type="FixedString" value="" />
+          <attribute id="MD5" type="LSString" value="" />
+          <attribute id="MainMenuBackgroundVideo" type="FixedString" value="" />
+          <attribute id="MenuLevelName" type="FixedString" value="" />
+          <attribute id="Name" type="LSString" value="BG3 GUI Bridge" />
+          <attribute id="NumPlayers" type="uint8" value="4" />
+          <attribute id="PhotoBooth" type="FixedString" value="" />
+          <attribute id="StartupLevelName" type="FixedString" value="" />
+          <attribute id="Tags" type="LSString" value="" />
+          <attribute id="Type" type="FixedString" value="Patch" />
+          <attribute id="UUID" type="FixedString" value="b7b25bc1-f2f2-42df-810a-43afa2771550" />
+          <attribute id="Version64" type="int64" value="36028797018963968" />
+          <children>
+            <node id="PublishVersion">
+              <attribute id="Version64" type="int64" value="36028797018963968" />
+            </node>
+            <node id="Scripts" />
+            <node id="TargetModes">
+              <children>
+                <node id="Target">
+                  <attribute id="Object" type="FixedString" value="Story" />
+                </node>
+              </children>
+            </node>
+          </children>
+        </node>
+      </children>
+    </node>
+  </region>
+</save>

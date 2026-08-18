@@ -1,0 +1,3 @@
+# PyQt6 is already installed system-wide on this machine (CachyOS package).
+# If you ever need it in a venv instead:
+PyQt6>=6.6
