@@ -7,7 +7,7 @@
       "category": "Health",
       "confidence": "verified-pattern",
       "description": "Applies the SG_Immortal status (0 HP survival) to every player character. Community-standard invulnerability trick.",
-      "lua": "local n = 0\nfor _, guid in ipairs(ctx.players()) do\n  Osiris.ApplyStatus(guid, 'SG_Immortal', -1, 0)\n  n = n + 1\nend\nreturn 'god mode ON for ' .. n .. ' character(s)'"
+      "lua": "local n = 0\nfor _, guid in ipairs(ctx.players()) do\n  Osi.ApplyStatus(guid, 'SG_Immortal', -1, 0)\n  n = n + 1\nend\nreturn 'god mode ON for ' .. n .. ' character(s)'"
     },
     {
       "id": "god_mode_off",
@@ -15,7 +15,7 @@
       "category": "Health",
       "confidence": "verified-pattern",
       "description": "Removes SG_Immortal from every player character.",
-      "lua": "local n = 0\nfor _, guid in ipairs(ctx.players()) do\n  Osiris.RemoveStatus(guid, 'SG_Immortal')\n  n = n + 1\nend\nreturn 'god mode OFF for ' .. n .. ' character(s)'"
+      "lua": "local n = 0\nfor _, guid in ipairs(ctx.players()) do\n  Osi.RemoveStatus(guid, 'SG_Immortal')\n  n = n + 1\nend\nreturn 'god mode OFF for ' .. n .. ' character(s)'"
     },
     {
       "id": "heal_full",
@@ -31,16 +31,16 @@
       "category": "Health",
       "confidence": "needs-testing",
       "description": "Removes the KNOCKED_OUT / DOWNED status and tops up HP. Exact status name varies by game version — verify in console first.",
-      "lua": "local n = 0\nfor _, guid in ipairs(ctx.players()) do\n  Osiris.RemoveStatus(guid, 'KNOCKED_DOWN')\n  local e = Ext.Entity.Get(guid)\n  if e and e.Health then\n    e.Health.Hp = math.max(1, math.floor(e.Health.MaxHp * 0.5))\n    e:Replicate('Health')\n  end\n  n = n + 1\nend\nreturn 'attempted revive on ' .. n .. ' character(s)'"
+      "lua": "local n = 0\nfor _, guid in ipairs(ctx.players()) do\n  Osi.RemoveStatus(guid, 'KNOCKED_DOWN')\n  local e = Ext.Entity.Get(guid)\n  if e and e.Health then\n    e.Health.Hp = math.max(1, math.floor(e.Health.MaxHp * 0.5))\n    e:Replicate('Health')\n  end\n  n = n + 1\nend\nreturn 'attempted revive on ' .. n .. ' character(s)'"
     },
     {
       "id": "add_gold",
       "label": "Add Gold",
       "category": "Resources",
       "confidence": "needs-testing",
-      "description": "Gold in BG3 is a currency item template, not a raw stat. This calls Osiris.TemplateAddTo with a placeholder gold template GUID — replace GOLD_TEMPLATE with the real one (findable via the console: search item templates for 'Gold').",
+      "description": "Gold in BG3 is a currency item template, not a raw stat. This calls Osi.TemplateAddTo with a placeholder gold template GUID — replace GOLD_TEMPLATE with the real one (findable via the console: search item templates for 'Gold').",
       "params": [{"name": "amount", "type": "int", "default": 500}],
-      "lua": "local target = ctx.players()[1]\nif not target then return 'no player character found' end\nlocal amount = params.amount or 500\nlocal ok = Osiris.TemplateAddTo('GOLD_TEMPLATE_REPLACE_ME', target, amount, 1)\nreturn 'add gold -> ' .. tostring(ok) .. ' (verify GOLD_TEMPLATE_REPLACE_ME first)'"
+      "lua": "local target = ctx.players()[1]\nif not target then return 'no player character found' end\nlocal amount = params.amount or 500\nlocal ok = Osi.TemplateAddTo('GOLD_TEMPLATE_REPLACE_ME', target, amount, 1)\nreturn 'add gold -> ' .. tostring(ok) .. ' (verify GOLD_TEMPLATE_REPLACE_ME first)'"
     },
     {
       "id": "add_xp",
@@ -49,7 +49,7 @@
       "confidence": "needs-testing",
       "description": "Attempts to grant XP via the Osiris XP-related function. Exact function name should be confirmed in-game (look for XP-related entries via console help/autocomplete).",
       "params": [{"name": "amount", "type": "int", "default": 1000}],
-      "lua": "local target = ctx.players()[1]\nif not target then return 'no player character found' end\nlocal amount = params.amount or 1000\nlocal ok = pcall(function() Osiris.AddXP(target, amount) end)\nreturn 'add xp -> ' .. tostring(ok) .. ' (verify Osiris.AddXP exists in your version)'"
+      "lua": "local target = ctx.players()[1]\nif not target then return 'no player character found' end\nlocal amount = params.amount or 1000\nlocal ok = pcall(function() Osi.AddXP(target, amount) end)\nreturn 'add xp -> ' .. tostring(ok) .. ' (verify Osi.AddXP exists in your version)'"
     },
     {
       "id": "add_camp_supplies",
@@ -58,7 +58,7 @@
       "confidence": "needs-testing",
       "description": "Camp supplies are tracked per-party; exact Osiris call needs confirming against docs/console.",
       "params": [{"name": "amount", "type": "int", "default": 100}],
-      "lua": "local amount = params.amount or 100\nlocal ok = pcall(function() Osiris.CampAddSupplies(amount) end)\nreturn 'add camp supplies -> ' .. tostring(ok) .. ' (verify Osiris.CampAddSupplies exists)'"
+      "lua": "local amount = params.amount or 100\nlocal ok = pcall(function() Osi.CampAddSupplies(amount) end)\nreturn 'add camp supplies -> ' .. tostring(ok) .. ' (verify Osi.CampAddSupplies exists)'"
     },
     {
       "id": "long_rest",
@@ -66,7 +66,7 @@
       "category": "Utility",
       "confidence": "needs-testing",
       "description": "Forces a long rest without needing to be at camp. Verify the exact Osiris story function name in console first.",
-      "lua": "local ok = pcall(function() Osiris.ForceLongRest() end)\nreturn 'long rest -> ' .. tostring(ok) .. ' (verify Osiris.ForceLongRest exists)'"
+      "lua": "local ok = pcall(function() Osi.ForceLongRest() end)\nreturn 'long rest -> ' .. tostring(ok) .. ' (verify Osi.ForceLongRest exists)'"
     },
     {
       "id": "unlock_all_recipes",
@@ -80,12 +80,12 @@
       "label": "Spawn Item by Template ID",
       "category": "Utility",
       "confidence": "verified-pattern",
-      "description": "Osiris.TemplateAddTo(templateGUID, target, amount, addToParty) is a well-documented signature for spawning an item into an inventory. Pass the template GUID as the 'template' param.",
+      "description": "Osi.TemplateAddTo(templateGUID, target, amount, addToParty) is a well-documented signature for spawning an item into an inventory. Pass the template GUID as the 'template' param.",
       "params": [
         {"name": "template", "type": "string", "default": ""},
         {"name": "amount", "type": "int", "default": 1}
       ],
-      "lua": "local target = ctx.players()[1]\nif not target then return 'no player character found' end\nif not params.template or params.template == '' then return 'set a template id first' end\nlocal ok = Osiris.TemplateAddTo(params.template, target, params.amount or 1, 1)\nreturn 'spawn item -> ' .. tostring(ok)"
+      "lua": "local target = ctx.players()[1]\nif not target then return 'no player character found' end\nif not params.template or params.template == '' then return 'set a template id first' end\nlocal ok = Osi.TemplateAddTo(params.template, target, params.amount or 1, 1)\nreturn 'spawn item -> ' .. tostring(ok)"
     },
     {
       "id": "free_respec",

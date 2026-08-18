@@ -8,7 +8,7 @@ BG3GuiBridge_Commands = {
     confidence = "verified-pattern",
     lua = [[local n = 0
 for _, guid in ipairs(ctx.players()) do
-  Osiris.ApplyStatus(guid, 'SG_Immortal', -1, 0)
+  Osi.ApplyStatus(guid, 'SG_Immortal', -1, 0)
   n = n + 1
 end
 return 'god mode ON for ' .. n .. ' character(s)']],
@@ -20,7 +20,7 @@ return 'god mode ON for ' .. n .. ' character(s)']],
     confidence = "verified-pattern",
     lua = [[local n = 0
 for _, guid in ipairs(ctx.players()) do
-  Osiris.RemoveStatus(guid, 'SG_Immortal')
+  Osi.RemoveStatus(guid, 'SG_Immortal')
   n = n + 1
 end
 return 'god mode OFF for ' .. n .. ' character(s)']],
@@ -48,7 +48,7 @@ return 'healed ' .. n .. ' character(s)']],
     confidence = "needs-testing",
     lua = [[local n = 0
 for _, guid in ipairs(ctx.players()) do
-  Osiris.RemoveStatus(guid, 'KNOCKED_DOWN')
+  Osi.RemoveStatus(guid, 'KNOCKED_DOWN')
   local e = Ext.Entity.Get(guid)
   if e and e.Health then
     e.Health.Hp = math.max(1, math.floor(e.Health.MaxHp * 0.5))
@@ -66,7 +66,7 @@ return 'attempted revive on ' .. n .. ' character(s)']],
     lua = [[local target = ctx.players()[1]
 if not target then return 'no player character found' end
 local amount = params.amount or 500
-local ok = Osiris.TemplateAddTo('GOLD_TEMPLATE_REPLACE_ME', target, amount, 1)
+local ok = Osi.TemplateAddTo('GOLD_TEMPLATE_REPLACE_ME', target, amount, 1)
 return 'add gold -> ' .. tostring(ok) .. ' (verify GOLD_TEMPLATE_REPLACE_ME first)']],
   },
   {
@@ -77,8 +77,8 @@ return 'add gold -> ' .. tostring(ok) .. ' (verify GOLD_TEMPLATE_REPLACE_ME firs
     lua = [[local target = ctx.players()[1]
 if not target then return 'no player character found' end
 local amount = params.amount or 1000
-local ok = pcall(function() Osiris.AddXP(target, amount) end)
-return 'add xp -> ' .. tostring(ok) .. ' (verify Osiris.AddXP exists in your version)']],
+local ok = pcall(function() Osi.AddXP(target, amount) end)
+return 'add xp -> ' .. tostring(ok) .. ' (verify Osi.AddXP exists in your version)']],
   },
   {
     id = "add_camp_supplies",
@@ -86,16 +86,16 @@ return 'add xp -> ' .. tostring(ok) .. ' (verify Osiris.AddXP exists in your ver
     category = "Resources",
     confidence = "needs-testing",
     lua = [[local amount = params.amount or 100
-local ok = pcall(function() Osiris.CampAddSupplies(amount) end)
-return 'add camp supplies -> ' .. tostring(ok) .. ' (verify Osiris.CampAddSupplies exists)']],
+local ok = pcall(function() Osi.CampAddSupplies(amount) end)
+return 'add camp supplies -> ' .. tostring(ok) .. ' (verify Osi.CampAddSupplies exists)']],
   },
   {
     id = "long_rest",
     label = "Long Rest Anywhere",
     category = "Utility",
     confidence = "needs-testing",
-    lua = [[local ok = pcall(function() Osiris.ForceLongRest() end)
-return 'long rest -> ' .. tostring(ok) .. ' (verify Osiris.ForceLongRest exists)']],
+    lua = [[local ok = pcall(function() Osi.ForceLongRest() end)
+return 'long rest -> ' .. tostring(ok) .. ' (verify Osi.ForceLongRest exists)']],
   },
   {
     id = "unlock_all_recipes",
@@ -112,7 +112,7 @@ return 'long rest -> ' .. tostring(ok) .. ' (verify Osiris.ForceLongRest exists)
     lua = [[local target = ctx.players()[1]
 if not target then return 'no player character found' end
 if not params.template or params.template == '' then return 'set a template id first' end
-local ok = Osiris.TemplateAddTo(params.template, target, params.amount or 1, 1)
+local ok = Osi.TemplateAddTo(params.template, target, params.amount or 1, 1)
 return 'spawn item -> ' .. tostring(ok)]],
   },
   {

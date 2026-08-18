@@ -46,16 +46,20 @@ end
 -- ---------------------------------------------------------------------------
 local ctx = {}
 
--- Returns the GUIDs of all currently player-controlled characters.
--- This is the standard community pattern (query the IsPlayer Osiris database).
--- VERIFY: if this returns an empty table in your version, open the dev console
--- and inspect `Osiris.DB_IsPlayer:Get(nil)` directly to find the right query.
+-- Returns the GUIDs of all currently player-controlled party members.
+-- Verified against a real, published BG3SE mod (Osi.DB_Players + Osi.IsPartyMember) —
+-- NOTE: the calling convention is `Osi.*` (a global table, see BG3Extender/IdeHelpers/
+-- ExtIdeHelpers.lua: `Osi = {}`), NOT a bare `Osiris` global — that name doesn't exist.
+-- `Ext.Osiris.RegisterListener(...)` is a separate namespace for event listening only.
 function ctx.players()
     local guids = {}
-    local ok, rows = pcall(function() return Osiris.DB_IsPlayer:Get(nil) end)
-    if ok and rows then
-        for _, row in ipairs(rows) do
-            table.insert(guids, row[1])
+    local ok, players = pcall(function() return Osi.DB_Players:Get(nil) end)
+    if ok and players then
+        for _, playerData in pairs(players) do
+            local guid = playerData[1]
+            if Osi.IsPartyMember(guid, 1) == 1 then
+                table.insert(guids, guid)
+            end
         end
     end
     return guids
